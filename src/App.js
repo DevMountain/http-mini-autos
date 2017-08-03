@@ -15,10 +15,13 @@ class App extends Component {
 
     this.getVehicles = this.getVehicles.bind(this);
     this.getPotentialBuyers = this.getPotentialBuyers.bind(this);
-    this.onSoldButtonClick = this.onSoldButtonClick.bind(this);
+    this.sellCar = this.sellCar.bind(this);
     this.addCar = this.addCar.bind(this);
     this.filterByColor = this.filterByColor.bind(this);
     this.filterByMake = this.filterByMake.bind(this);
+    this.addBuyer = this.addBuyer.bind(this);
+    this.nameSearch = this.nameSearch.bind(this);
+    this.resetData = this.resetData.bind(this);
   }
 
   getVehicles() {
@@ -31,9 +34,10 @@ class App extends Component {
     // setState with response -> buyersToDisplay
   }
 
-  onSoldButtonClick() {
+  sellCar(e, id) {
     // axios (DELETE)
     // setState with response -> vehiclesToDisplay
+
   }
 
   filterByMake() {
@@ -75,6 +79,25 @@ addBuyer() {
   // setState with response -> buyersToDisplay
 }
 
+nameSearch() {
+
+}
+
+resetData(dataToReset) {
+  axios.get('/api/' + dataToReset + '/reset')
+    .then( res => {
+      if (dataToReset == 'vehicles') {
+        this.setState({
+          vehiclesToDisplay: res.data
+        })
+      } else {
+        this.setState({
+          buyersToDisplay: res.data
+        })
+      }
+    })
+}
+
 
   render() {
     const vehicles = this.state.vehiclesToDisplay.map( v => {
@@ -86,13 +109,16 @@ addBuyer() {
           <p>Color: { v.color }</p>
           <p>Price: { v.price }</p>
           <button
+            className='btn btn-sp'
             onClick={ () => this.updatePrice('up') }
             >Increase Price</button>
           <button
+            className='btn btn-sp'
             onClick={ () => this.updatePrice('down') }
             >Decrease Price</button>  
           <button 
-            onClick={ () => this.onSoldButtonClick(v.id) }
+            className='btn btn-sp'
+            onClick={ () => this.sellCar(v.id) }
             >SOLD!</button>
           <hr className='hr' />
         </div> 
@@ -105,7 +131,7 @@ addBuyer() {
           <p>Name: {person.name}</p>
           <p>Phone: {person.phone}</p>
           <p>Address: {person.address}</p>
-          <button>No longer interested</button>
+          <button className='btn'>No longer interested</button>
           <hr className='hr' />
         </div> 
       )
@@ -115,10 +141,12 @@ addBuyer() {
       <div className=''>
         <header className='header'>
          <img src={logo} alt=""/>
+         <button className="header-btn1 btn">Reset Vehicles</button>
+         <button className='header-btn2 btn'>Reset Buyers</button>
         </header>
         <div className='btn-container'>
           <button
-            className='btn-sp' 
+            className='btn-sp btn' 
             onClick={ this.getVehicles }
             >Get All Vehicles</button>
           <select
@@ -148,32 +176,33 @@ addBuyer() {
             <option value="violet">Violet</option>
             <option value="teal">Teal</option>
           </select>
+          <input onChange={ this.nameSearch } placeholder='Search by name' type="text"/>
           <button
-            className='btn-sp'
+            className='btn-sp btn'
             onClick={ this.getPotentialBuyers }
             >Get Potential Buyers</button>
         </div> 
 
         <br />
 
+        {/* <p className='form-wrap'>Add vehicle:</p> */}
         <p className='form-wrap'>
-          Add vehicle:
           <input className='btn-sp' placeholder='make' ref="make"/>
           <input className='btn-sp' placeholder='model' ref='model'/>
-          <input className='btn-sp' placeholder='year' ref='year'/>
+          <input type='number' className='btn-sp' placeholder='year' ref='year'/>
           <input className='btn-sp' placeholder='color' ref='color'/>
-          <input className='btn-sp' placeholder='price' ref='price'/>
-          <button className='btn-sp' onClick={this.addCar}>Add</button>
+          <input type='number' className='btn-sp' placeholder='price' ref='price'/>
+          <button className='btn-sp btn' onClick={this.addCar}>Add vehicle</button>
         </p>
+        {/* <p className='form-wrap'>Add Possible buyer:</p> */}
         <p className='form-wrap'>
-          Add Possible buyer:
           <input className='btn-sp' placeholder='name' ref='name'/>
           <input className='btn-sp' placeholder='phone' ref='phone'/>
           <input className='btn-sp' placeholder='address' ref='address'/>
           <button 
             onClick={ this.addBuyer }
-            className='btn-sp' 
-            >Add</button>
+            className='btn-sp btn' 
+            >Add buyer</button>
         </p>
         
 
