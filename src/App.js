@@ -3,6 +3,10 @@ import logo from './joesAuto.svg';
 import axios from 'axios';
 import './App.css';
 
+// === TOAST ================
+import { ToastContainer, ToastStore } from 'react-toasts';
+// ===========================
+
 class App extends Component {
 
   constructor(props) {
@@ -139,6 +143,7 @@ resetData(dataToReset) {
 
     return (
       <div className=''>
+        <ToastContainer store={ ToastStore } />
         <header className='header'>
          <img src={logo} alt=""/>
          <button className="header-btn1 btn">Reset Vehicles</button>

@@ -14,13 +14,13 @@ URL: https://joes-autos.herokuapp.com
 
 - Get all vehicles - '/api/vehicles'
 
-- Get vehicles by color - '/api/vehicleByColor'
+- Get vehicles by color - '/api/vehicles'
   - Send with query: `'color'`
 
-- Get vehicles newer than specified year - '/api/vehiclesByYear'
+- Get vehicles newer than specified year - '/api/vehicles'
   - Send with query: `'year'`
 
-- Get vehicles by make - '/api/vehiclesByMake'
+- Get vehicles by make - '/api/vehicles'
   - Send with query: `'make'`
 
 ###### POST
