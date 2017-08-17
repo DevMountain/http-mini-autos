@@ -3,6 +3,10 @@ import logo from './joesAuto.svg';
 import axios from 'axios';
 import './App.css';
 
+// === TOAST ================
+import { ToastContainer, ToastStore } from 'react-toasts';
+// ===========================
+
 class App extends Component {
 
   constructor(props) {
@@ -22,6 +26,7 @@ class App extends Component {
     this.addBuyer = this.addBuyer.bind(this);
     this.nameSearch = this.nameSearch.bind(this);
     this.resetData = this.resetData.bind(this);
+    this.byYear = this.byYear.bind(this);
   }
 
   getVehicles() {
@@ -34,7 +39,7 @@ class App extends Component {
     // setState with response -> buyersToDisplay
   }
 
-  sellCar(e, id) {
+  sellCar(id) {
     // axios (DELETE)
     // setState with response -> vehiclesToDisplay
 
@@ -80,9 +85,19 @@ addBuyer() {
 }
 
 nameSearch() {
-
+  // axios (GET)
+  // setState with response -> buyersToDisplay
+  let searchLetters = this.refs.searchLetters.value;
 }
 
+byYear() {
+  let year = this.refs.year.value;
+  // axios (GET)
+  // setState with response -> vehiclesToDisplay
+}
+
+// === RESET DATA - DON'T CHANGE ================
+// ==============================================
 resetData(dataToReset) {
   axios.get('/api/' + dataToReset + '/reset')
     .then( res => {
@@ -97,7 +112,8 @@ resetData(dataToReset) {
       }
     })
 }
-
+// ==============================================
+// ==============================================
 
   render() {
     const vehicles = this.state.vehiclesToDisplay.map( v => {
@@ -139,6 +155,7 @@ resetData(dataToReset) {
 
     return (
       <div className=''>
+        <ToastContainer store={ ToastStore } />
         <header className='header'>
          <img src={logo} alt=""/>
          <button className="header-btn1 btn">Reset Vehicles</button>
@@ -176,7 +193,20 @@ resetData(dataToReset) {
             <option value="violet">Violet</option>
             <option value="teal">Teal</option>
           </select>
-          <input onChange={ this.nameSearch } placeholder='Search by name' type="text"/>
+          <input 
+            onChange={ this.nameSearch } 
+            placeholder='Search by name' 
+            type="text"
+            ref='searchLetters'/>
+           <input 
+            ref='year'
+            className='btn-sp'
+            type='number'
+            placeholder='Year'/> 
+          <button
+            onClick={ this.byYear }
+            className='btn-inp'>
+            Go</button>  
           <button
             className='btn-sp btn'
             onClick={ this.getPotentialBuyers }
@@ -185,7 +215,6 @@ resetData(dataToReset) {
 
         <br />
 
-        {/* <p className='form-wrap'>Add vehicle:</p> */}
         <p className='form-wrap'>
           <input className='btn-sp' placeholder='make' ref="make"/>
           <input className='btn-sp' placeholder='model' ref='model'/>
@@ -194,7 +223,6 @@ resetData(dataToReset) {
           <input type='number' className='btn-sp' placeholder='price' ref='price'/>
           <button className='btn-sp btn' onClick={this.addCar}>Add vehicle</button>
         </p>
-        {/* <p className='form-wrap'>Add Possible buyer:</p> */}
         <p className='form-wrap'>
           <input className='btn-sp' placeholder='name' ref='name'/>
           <input className='btn-sp' placeholder='phone' ref='phone'/>

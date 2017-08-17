@@ -1,61 +1,97 @@
 # HTTP-mini
 
 1. Fork, clone, and then `cd` into directory.
-2. `npm install`
-3. Below are instructions on how to interact with an api for a used car salesman.
-  - Run `npm start`
-  - Your task is to use the information below to make the buttons and selects functional.
+2. Run `npm install`.
+3. Below is the documentation for a used car sales business' API. Read through the api docs so that you know what types of requests you can make, and what responses you can expect. 
 
-#### Vehicles
+* Start with setting up **_1_** get, put, post, and delete request. If you have time or need more practice with http requests, set up the rest of the app.
 
-URL: https://joes-autos.herokuapp.com
+NOTE: Your focus is on making the http requests using axios. You will notice that most of the app is already set up for you.
 
-###### GET
+REMINDER: It is hard to dive into an existing code base and understand exactly what is going on. This project's focus is to help you learn how to interact with an API through http requests. It is not neccessary to understand each peice of this react app.
 
-- Get all vehicles - '/api/vehicles'
+FOCUS:
+  - How to make an http request using axios.
+  - Understanding GET, PUT, POST, and DELETE
+  - Using and understanding `.then()`
 
-- Get vehicles by color - '/api/vehicleByColor'
-  - Send with query: `'color'`
+## Joe's Auto API Docs:
 
-- Get vehicles newer than specified year - '/api/vehiclesByYear'
-  - Send with query: `'year'`
+  - Base url: https://joes-autos.herokuapp.com
 
-- Get vehicles by make - '/api/vehiclesByMake'
-  - Send with query: `'make'`
+### *Vehicles*
 
-###### POST
-- Add vehicle - '/api/vehicles'
-  - Need make, model, year, color, price in body of request. ID is auto-generated.
-  - Responds with updated vehicles array.
 
-###### PUT
-- Increase/decrease price of car by $1000 -  '/api/vehicle/:id/:change'
+#### GET
+
+##### Get all vehicles
+- Request url: base url + '/api/vehicles'
+- Response: All vehicles
+
+##### Get vehicles by color
+- Request url: base url + '/api/vehicles'
+- Send with query: i.e. `?color=red`
+- Response: All vehicles that match given color
+
+##### Get vehicles newer than specified year
+- Request url: base url + '/api/vehicles'
+- Send with query: i.e. `?year=1998`
+- Response: All vehicles newer than given year
+
+##### Get vehicles by make
+- Request url: base url + '/api/vehicles'
+- Send with query: i.e. `?make=ford`
+- Response: All vehicles that match given car make
+
+#### POST
+
+##### Add vehicle
+- Request url: base url + '/api/vehicles'
+- Need make, model, year, color, price in body of request. ID is auto-generated.
+- Response: updated vehicles array.
+
+#### PUT
+
+##### Increase/decrease price of car by $1000 
+- Request url: base url + '/api/vehicle/:id/:change'
   - `id` is the id of the vehicle
   - Value of `change` needs to be either `up` or `down`.
-  - Responds with updated vehicles array.
+- Response: updated vehicles array
 
-###### DELETE
-- Delete vehicle by id - '/api/vehicles/:id'
-  - Responds with updated vehicles array.
+#### DELETE
+
+##### Delete vehicle by id
+- Request url: base url + '/api/vehicles/:id'
+- Response: updated vehicles array
 
 
+### *Potential Buyers*
 
-#### Potential Buyers
+#### GET
 
-###### GET
-- Get all buyers '/api/buyers'
+##### Get all buyers
+- Request url: base url + '/api/buyers'
+- Response: array of all buyers
 
-- Get buyers by name - '/api/buyersByName'
-  - Send with query: `'name'`
+##### Get buyers by name/letters
+- Request url: base url + '/api/buyers'
+  - Send with query: i.e. `?name=Lindsey`
+  - Will find names that match letters sent
+- Response: Array of buyers with matching names
 
-###### POST
-- Add potential buyer - '/api/buyers'
+#### POST
+
+##### Add potential buyer
+- Request url: base url + '/api/buyers'
   - Need name, phone, address in body of request. ID is auto-generated.
-  - Responds with updated buyers array.
+- Response: updated buyers array
 
-###### DELETE
-- Delete buyer by id - '/api/buyers/:id'
-  - Responds with updated buyers array.
+#### DELETE
+
+##### Delete buyer by id
+- Request url: base url + '/api/buyers/:id'
+  - `id` param is the id of the buyer getting removed
+- Response: updated buyers array
 
 
 
